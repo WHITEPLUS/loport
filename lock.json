@@ -1,0 +1,13 @@
+{
+    "memo": "6b9494e2940c30af6563ab9019af7253bf30065afd72140c34fa74a8a1a262a0",
+    "projects": [
+        {
+            "name": "github.com/elazarl/goproxy",
+            "version": "v1.0",
+            "revision": "0a5b8bdb09049ae4ae68e75437ded0b7a2e324e3",
+            "packages": [
+                "."
+            ]
+        }
+    ]
+}
