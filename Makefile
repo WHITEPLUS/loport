@@ -1,19 +1,11 @@
 GO := $(shell which go)
-BIN := loport
-APP := $(shell echo "$${PWD/$$GOPATH\/src\/}")
+APP := loport
+ARM := ./bin/$(APP).arm64
+AMD := ./bin/$(APP).amd64
 
-.PHONY:	build vendor test
+.PHONY:	build
 
-build: vendor
-	$(GO) build -i -gcflags "-N -l" -o $(BIN) ./*.go
-
-
-vendor:
-ifeq ($(shell type dep 2> /dev/null),)
-	go get -u github.com/golang/dep/...
-endif
-	dep ensure
-
-
-test:
-	$(GO) test -cover -v $$(go list ./... | grep -v $(APP)/vendor)
+build:
+	GOOS=darwin GOARCH=amd64 $(GO) build -gcflags "-N -l" -o $(ARM)
+	GOOS=darwin GOARCH=arm64 $(GO) build -gcflags "-N -l" -o $(AMD)
+	lipo -create -output ./bin/$(APP) $(ARM) $(AMD)
